@@ -12,26 +12,27 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import schoolexc.quizapp.pojo.Category;
+import schoolexc.quizapp.pojo.Level;
 
 /**
  *
  * @author LE TUNG
  */
-public class CategoryServices {
+public class LevelServices {
 
-    public List<Category> getCates() throws SQLException {
+    public List<Level> getLevel() throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/quizdb", "root", "root");
-        
-        Statement stm = conn.createStatement();
-        ResultSet rs = stm.executeQuery("SELECT * FROM category");
 
-        List<Category> cates = new ArrayList<>();
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("SELECT * FROM level");
+
+        List<Level> lvl  = new ArrayList<>();
         while (rs.next()) {
-            Category c = new Category(rs.getInt("id"), rs.getString("name"));
-            cates.add(c);
+            Level v = new Level(rs.getInt("id"), rs.getString("name"),rs.getString("note"));
+            lvl.add(v);
 
 //                System.out.printf("id : %d \t ten : %s\n",rs.getInt("id"),rs.getString("ten"));
         }
-        return cates;
+        return  lvl;
     }
 }
