@@ -6,4 +6,6 @@ module schoolexc.quizapp {
     requires lombok;
     opens schoolexc.quizapp to javafx.fxml;
     exports schoolexc.quizapp;
+    exports schoolexc.quizapp.pojo;
+
 }

@@ -9,6 +9,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import schoolexc.quizapp.pojo.Choice;
+import schoolexc.quizapp.pojo.Level;
 import schoolexc.quizapp.pojo.Question;
 import schoolexc.quizapp.ultils.JdbcConnector;
 
@@ -54,4 +59,80 @@ public class QuestionService {
         };
     }
 
+    public boolean deleteQuestion(int id) throws SQLException{
+        Connection conn = JdbcConnector.getInstance().connect();
+        PreparedStatement stm  = conn.prepareCall("DELETE FROM question WHERE id = ?");
+        stm.setInt(1, id);
+        
+        return stm.executeUpdate() > 0;
+    }
+    
+    public List<Question> getQuestion() throws SQLException{
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/quizdb", "root", "root");
+
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("SELECT * FROM question ORDER BY id DESC");
+
+        List<Question> question  = new ArrayList<>();
+        while (rs.next()) {
+            Question q = new Question.Builder(rs.getInt("id"), rs.getString("content")).build();
+            question.add(q);
+        }
+        return  question;
+    }
+    
+    
+    public List<Question> getQuestion(String kw) throws SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/quizdb", "root", "root");
+
+        PreparedStatement stm = conn.prepareCall("SELECT * FROM question WHERE content like concat ('%' , ? , '%') ORDER BY id DESC");
+        stm.setString(1, kw);
+        ResultSet rs = stm.executeQuery();
+
+        List<Question> question = new ArrayList<>();
+        while (rs.next()) {
+            Question q = new Question.Builder(rs.getInt("id"), rs.getString("content")).build();
+            question.add(q);
+
+        }
+        return question;
+    }
+    
+     public List<Question> getQuestion(int num) throws SQLException {
+        Connection conn = JdbcConnector.getInstance().connect();
+
+        PreparedStatement stm = conn.prepareCall("SELECT * FROM question LIMIT ? ORDER BY rand()");
+        stm.setInt(1, num);
+        ResultSet rs = stm.executeQuery();
+
+        List<Question> question = new ArrayList<>();
+        while (rs.next()) {
+            Question q = new Question.Builder(rs.getInt("id"),
+                    rs.getString("content"))
+                    .addAllChoice(this.getChoicesByQuestion(rs.getInt("id"))).build();
+        
+            
+            
+            question.add(q);
+     
+        
+        }
+        return question;
+    }
+     
+     public List<Choice> getChoicesByQuestion(int questionId) throws SQLException{
+         Connection conn = JdbcConnector.getInstance().connect();
+
+        PreparedStatement stm = conn.prepareCall("SELECT * FROM choice WHERE question_id = ?");
+        stm.setInt(1, questionId);
+        
+        ResultSet rs = stm.executeQuery();
+        List<Choice> choices = new ArrayList<>();
+        while(rs.next()){
+            Choice c = new Choice(rs.getInt("id"), rs.getString("content"),rs.getBoolean("is_correct"));
+            choices.add(c);
+            
+        }
+        return choices;
+     }
 }

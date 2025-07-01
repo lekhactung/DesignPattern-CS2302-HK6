@@ -52,8 +52,10 @@ public class PrimaryController implements Initializable {
         MyStage.getInstance().showStage("Question.fxml");
     }
 
-    public void handlePractice(ActionEvent event) {
-        MyAlert.getInstance().showMsg("Comming soon...");
+    public void handlePractice(ActionEvent event) throws IOException {
+//        MyAlert.getInstance().showMsg("Comming soon...");
+        MyStage.getInstance().showStage("practice.fxml");
+
     }
 
     @Override

@@ -4,7 +4,9 @@
  */
 package schoolexc.quizapp.ultils;
 
+import java.util.Optional;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 /**
  *
@@ -23,6 +25,12 @@ public class MyAlert {
         this.alert.setContentText(msg);
         this.alert.showAndWait();
     }
+    public Optional<ButtonType> showMsg(String msg,Alert.AlertType type){
+        this.alert.setAlertType(type);
+        this.alert.setContentText(msg);
+        return this.alert.showAndWait();
+    }
+    
     
     public static MyAlert getInstance(){
         if(instance==null){

@@ -13,18 +13,26 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import schoolexc.quizapp.pojo.Category;
@@ -53,6 +61,10 @@ public class QuestionController implements Initializable {
     private TextArea txtContent;
     @FXML
     private ToggleGroup toggleChoice;
+    @FXML
+    private TableView<Question> tbQuestion;
+    @FXML
+    private TextField txtSearch;
 
     private static final CategoryServices cateService = new CategoryServices();
     private static final LevelServices lvlService = new LevelServices();
@@ -66,10 +78,20 @@ public class QuestionController implements Initializable {
         try {
             this.cbCates.setItems(FXCollections.observableList(cateService.getCates()));
             this.cbLevel.setItems(FXCollections.observableList(lvlService.getLevel()));
-
+            this.loadColumn();
+            this.tbQuestion.setItems(FXCollections.observableList(questionService.getQuestion()));
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        
+        this.txtSearch.textProperty().addListener((e) -> {
+            try {
+                this.tbQuestion.setItems(FXCollections.observableList(questionService.getQuestion(this.txtSearch.getText())));
+            } catch (SQLException ex) {
+                Logger.getLogger(QuestionController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+        });
+        
     }
 
     public void handleMoreChoice(ActionEvent event) {
@@ -108,6 +130,42 @@ public class QuestionController implements Initializable {
         } catch (Exception ex) {
             MyAlert.getInstance().showMsg("Du lieu khong hop le");
         }
+    }
+
+    private void loadColumn() {
+        TableColumn colId = new TableColumn("Id");
+        colId.setCellValueFactory(new PropertyValueFactory("id"));
+        colId.setPrefWidth(150);
+
+        TableColumn colContent = new TableColumn("Content");
+        colContent.setCellValueFactory(new PropertyValueFactory("content"));
+        colContent.setPrefWidth(300);
+        
+        TableColumn colAction = new TableColumn();
+        
+        colAction.setCellFactory((e)-> {
+            TableCell cell = new TableCell();
+            Button btn = new  Button("XOA");
+            btn.setOnAction(event -> {
+                Optional<ButtonType> type = MyAlert.getInstance().showMsg("Chac chan xoa?", Alert.AlertType.CONFIRMATION);
+                
+                if(type.isPresent() && type.get().equals(ButtonType.OK)){
+                    Question q = (Question)cell.getTableRow().getItem();
+                    try {
+                        questionService.deleteQuestion(q.getId());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(QuestionController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                    }
+                }
+            });
+            cell.setGraphic(btn);
+            
+            return cell;
+        });
+        
+        
+        
+        this.tbQuestion.getColumns().addAll(colId, colContent,colAction);
     }
 
 }

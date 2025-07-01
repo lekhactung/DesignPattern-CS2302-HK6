@@ -50,6 +50,13 @@ public class Question {
             this.level = level;
             this.choices = new ArrayList<>();
         }
+
+        public Builder(int id, String content) {
+            this.id = id;
+            this.content = content;
+        }
+        
+        
         
         public Builder addHint(String s){
             this.hint = s;
@@ -65,6 +72,12 @@ public class Question {
             this.choices.add(choice);
             return this;
         }
+        
+        public Builder addAllChoice (List<Choice> choices){
+            this.choices.addAll(choices);
+            return this;
+        }
+        
         
         public Question build(){
             return new Question(this);
