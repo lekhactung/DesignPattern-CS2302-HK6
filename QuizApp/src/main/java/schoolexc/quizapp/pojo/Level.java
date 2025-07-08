@@ -9,6 +9,7 @@ package schoolexc.quizapp.pojo;
  * @author LE TUNG
  */
 public class Level {
+
     private int id;
     private String name;
     private String note;
@@ -19,13 +20,16 @@ public class Level {
         this.note = note;
     }
 
+    public Level(int id) {
+        this.id = id;
+
+    }
+
     @Override
     public String toString() {
         return name;
     }
 
-    
-    
     /**
      * @return the id
      */
@@ -67,6 +71,5 @@ public class Level {
     public void setNote(String note) {
         this.note = note;
     }
-    
-    
+
 }
