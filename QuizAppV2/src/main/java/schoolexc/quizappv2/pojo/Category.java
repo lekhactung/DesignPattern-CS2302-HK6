@@ -2,33 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package schoolexc.quizapp.pojo;
+package schoolexc.quizappv2.pojo;
 
 /**
  *
  * @author LE TUNG
  */
-public class Level {
-
+public class Category {
     private int id;
     private String name;
-    private String note;
 
-    public Level(int id, String name, String note) {
+    public Category(int id, String name) {
         this.id = id;
         this.name = name;
-        this.note = note;
-    }
-
-    public Level(int id) {
-        this.id = id;
     }
 
     @Override
     public String toString() {
-        return name;
+        return this.name;
     }
 
+    
+    
     /**
      * @return the id
      */
@@ -56,19 +51,9 @@ public class Level {
     public void setName(String name) {
         this.name = name;
     }
-
-    /**
-     * @return the note
-     */
-    public String getNote() {
-        return note;
-    }
-
-    /**
-     * @param note the note to set
-     */
-    public void setNote(String note) {
-        this.note = note;
-    }
-
+    
+    
+   
+    
 }
+

@@ -6,6 +6,7 @@ schoolexc\quizapp\ultils\MyAlert.class
 schoolexc\quizapp\pojo\Category.class
 schoolexc\quizapp\ultils\MyStage.class
 schoolexc\quizapp\serivces\question\LevelQuestionServiceDecorator.class
+schoolexc\quizapp\serivces\question\LimitQuestionServiceDecorator.class
 module-info.class
 schoolexc\quizapp\serivces\question\BaseQuestionService.class
 schoolexc\quizapp\serivces\UpdateQuestionService.class

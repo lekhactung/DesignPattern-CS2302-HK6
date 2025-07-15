@@ -2,14 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package schoolexc.quizapp.pojo;
+package schoolexc.quizappv2.pojo;
 
 /**
  *
  * @author LE TUNG
  */
 public class Level {
-
     private int id;
     private String name;
     private String note;
@@ -20,15 +19,13 @@ public class Level {
         this.note = note;
     }
 
-    public Level(int id) {
-        this.id = id;
-    }
-
     @Override
     public String toString() {
         return name;
     }
 
+    
+    
     /**
      * @return the id
      */
@@ -70,5 +67,6 @@ public class Level {
     public void setNote(String note) {
         this.note = note;
     }
-
+    
+    
 }

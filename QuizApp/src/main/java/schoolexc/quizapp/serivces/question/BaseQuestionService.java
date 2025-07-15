@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import schoolexc.quizapp.pojo.Choice;
 import schoolexc.quizapp.pojo.Question;
 import schoolexc.quizapp.ultils.JdbcConnector;
 
@@ -42,5 +43,21 @@ public interface BaseQuestionService {
         }
         
         return questions;
+    }
+    
+    default public List<Choice> getChoicesByQuestion(int questionId) throws SQLException {
+        Connection conn = JdbcConnector.getInstance().connect();
+        PreparedStatement stm = conn.prepareCall("SELECT * FROM choice WHERE question_id=?"); 
+        stm.setInt(1, questionId);
+        
+        ResultSet rs = stm.executeQuery();
+        
+        List<Choice> choices = new ArrayList<>();
+        while (rs.next()) {
+            Choice c = new Choice(rs.getInt("id"), rs.getString("content"), rs.getBoolean("is_correct"));
+            choices.add(c);
+        }
+        
+        return choices;
     }
 }
