@@ -15,13 +15,20 @@ import schoolexc.quizappv2.utils.JdbcConnector;
  *
  * @author LE TUNG
  */
-public class QuestionServices {
+public class UpdateQuestionService {
+
+    public boolean deleteQuestion(int id) throws SQLException {
+        Connection conn = JdbcConnector.getInstance().connect();
+        PreparedStatement stm = conn.prepareCall("DELETE FROM question WHERE ID = ?");
+        stm.setInt(1, id);
+        return stm.executeUpdate() > 0;
+    }
 
     public void addQuestion(Question q) throws SQLException {
         Connection conn = JdbcConnector.getInstance().connect();
 
         conn.setAutoCommit(false);
-        
+
         String sql = "INSERT INTO question(content,hint,image,category_id,level_id) VALUES(?,?,?,?,?)";
         PreparedStatement stm = conn.prepareCall(sql);
 
@@ -34,8 +41,8 @@ public class QuestionServices {
         if (stm.executeUpdate() > 0) {
             int question_id = -1;
             ResultSet rs = stm.getGeneratedKeys();
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 question_id = rs.getInt(1);
             }
             sql = "INSERT INTO choice(content,is_correct,question_id) VALUES(?,?,?) ";
@@ -46,7 +53,7 @@ public class QuestionServices {
                 stm.setInt(3, question_id);
                 stm.executeUpdate();
             }
-            
+
             conn.commit();
         } else {
             conn.rollback();

@@ -21,8 +21,13 @@ public class PrimaryController implements Initializable {
         MyStage.getInstance().showStage("question.fxml");
     }
 
-    public void handlePracticeManagement(ActionEvent event) {
+    public void handlePracticeManagement(ActionEvent event) throws IOException {
+        MyStage.getInstance().showStage("practice.fxml");
 
+    }
+    
+    public void handleExam(ActionEvent event) throws IOException {
+        MyStage.getInstance().showStage("exam.fxml");
     }
 
     @Override

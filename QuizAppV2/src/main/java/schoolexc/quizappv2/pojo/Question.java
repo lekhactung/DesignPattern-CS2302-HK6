@@ -6,6 +6,7 @@ package schoolexc.quizappv2.pojo;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.ToString;
 
 /**
  *
@@ -21,6 +22,13 @@ public class Question {
     private Level level;
     private List<Choice> choices;
 
+    @Override
+    public String toString() {
+        return this.content;
+    }
+
+    
+    
     private Question(Builder b) {
         this.id = b.id;
         this.content = b.content;
@@ -38,7 +46,7 @@ public class Question {
         private String img;
         private Category category;
         private Level level;
-        private List<Choice> choices;
+        private List<Choice> choices = new ArrayList<>();
 
         public Builder(String content, Category category, Level level) throws Exception {
             if (content.isEmpty() || category == null || level == null) {
@@ -47,13 +55,13 @@ public class Question {
             this.content = content;
             this.category = category;
             this.level = level;
-            this.choices = new ArrayList<>();
         }
 
-        public Builder(int id, String content) {
+        public Builder(int id,String content) {
             this.id = id;
             this.content = content;
         }
+        
 
         public Builder addHint(String s) {
             this.hint = s;
@@ -69,7 +77,7 @@ public class Question {
             this.choices.add(choice);
             return this;
         }
-
+        
         public Builder addAllChoice(List<Choice> choices) {
             this.choices.addAll(choices);
             return this;

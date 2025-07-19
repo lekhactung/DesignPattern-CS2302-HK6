@@ -5,6 +5,7 @@
 package schoolexc.quizappv2.services;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,18 +18,21 @@ import schoolexc.quizappv2.utils.JdbcConnector;
  *
  * @author LE TUNG
  */
-public class LevelServices {
-    public List<Level> getLevels() throws SQLException{
-        Connection conn = JdbcConnector.getInstance().connect();
-        Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT * FROM level");
+public class LevelServices extends BaseSerivce<Level> {
 
-            List<Level> levels = new ArrayList<>();
-            while (rs.next()) {
-                Level l = new Level(rs.getInt("id"), rs.getString("name"),rs.getString("note"));
-                levels.add(l);
-            }
-            
-        return levels;
+    @Override
+    public PreparedStatement getStm(Connection conn) throws SQLException {
+        return conn.prepareCall("SELECT * FROM level");
+    }
+
+    @Override
+    public List<Level> getResult(ResultSet rs) throws SQLException {
+    List<Level> levels = new ArrayList<>();
+        while (rs.next()) {
+            Level l = new Level(rs.getInt("id"), rs.getString("name"), rs.getString("note"));
+            levels.add(l);
+        }
+
+        return levels;    
     }
 }

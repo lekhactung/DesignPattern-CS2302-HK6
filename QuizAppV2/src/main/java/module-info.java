@@ -6,4 +6,5 @@ module schoolexc.quizappv2 {
     requires lombok;
     opens schoolexc.quizappv2 to javafx.fxml;
     exports schoolexc.quizappv2;
+    exports schoolexc.quizappv2.pojo;
 }
