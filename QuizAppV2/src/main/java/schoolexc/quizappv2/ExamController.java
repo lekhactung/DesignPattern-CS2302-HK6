@@ -9,13 +9,17 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -63,7 +67,6 @@ public class ExamController implements Initializable {
         });
 
         this.cbType.setItems(FXCollections.observableArrayList(ExamType.values()));
-
     }
 
     public void handleStart(ActionEvent event) throws SQLException {
@@ -94,11 +97,10 @@ public class ExamController implements Initializable {
                         RadioButton r = new RadioButton(c.getContent());
                         r.setToggleGroup(tg);
                         //BO SUNG
-                        if(results.get(question.getId()) == c)
+                        if (results.get(question.getId()) == c) {
                             r.setSelected(true);
-                        //
-                        
-                        
+                        }
+                        //                        
                         r.setOnAction((e) -> {
                             if (r.isSelected()) {
                                 results.put(question.getId(), c);
@@ -115,14 +117,30 @@ public class ExamController implements Initializable {
 
     public void handleFinish(ActionEvent event) {
         int count = 0;
-        
-        for(var c : this.results.values()){
-            if(c.isCorrect()){
+
+        for (var c : this.results.values()) {
+            if (c.isCorrect()) {
                 count++;
             }
         }
         MyAlert.getInstance()
-                .showMsg(String.format("Ban lam dung %d/%d", count,questions.size())
-                ,Alert.AlertType.INFORMATION);
+                .showMsg(String.format("Ban lam dung %d/%d", count, questions.size()),
+                         Alert.AlertType.INFORMATION);
+    }
+
+    public void handleSave(ActionEvent event) {
+        if (questions == null || questions.isEmpty()) {
+            MyAlert.getInstance().showMsg("De thi chua duoc tao", Alert.AlertType.WARNING);
+        } else {
+            Optional<ButtonType> type = MyAlert.getInstance().showMsg("Ban chac chan luu de thi?", Alert.AlertType.CONFIRMATION);
+            if (type.isPresent() || type.get().equals(ButtonType.OK)) {
+                try {
+                    exService.addExam(questions);
+                    MyAlert.getInstance().showMsg("Luu thanh cong");
+                } catch (SQLException ex) {
+                    MyAlert.getInstance().showMsg("He thong da xay ra loi, ly do : " + ex.getMessage(),Alert.AlertType.ERROR);
+                }
+            }
+        }
     }
 }

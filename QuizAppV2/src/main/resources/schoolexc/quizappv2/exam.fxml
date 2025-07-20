@@ -22,7 +22,7 @@
       <HBox prefHeight="100.0" prefWidth="200.0" styleClass="Main">
          <children>
             <Button mnemonicParsing="false" onAction="#handleFinish" styleClass="Button" text="HOAN THANH" />
-            <Button mnemonicParsing="false" style="-fx-background-color: red;" styleClass="Button" text="LUU DE THI" />
+            <Button mnemonicParsing="false" onAction="#handleSave" style="-fx-background-color: red;" styleClass="Button" text="LUU DE THI" />
          </children>
       </HBox>
    </children>
