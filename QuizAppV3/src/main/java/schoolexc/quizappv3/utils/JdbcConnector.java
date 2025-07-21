@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package schoolexc.quizappv2.utils;
+package schoolexc.quizappv3.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,32 +19,33 @@ public class JdbcConnector {
     private static JdbcConnector instance;
     private final Connection conn;
 
-    static {//block luon chay dau tien
+    static {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(JdbcConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public JdbcConnector() throws SQLException {
-        this.conn = DriverManager.getConnection("jdbc:mysql://localhost/quizdb_1", "root", "root");//lay duong dan
+        this.conn = DriverManager.getConnection("jdbc:mysql://localhost/quizdb", "root", "root");
     }
 
     public static JdbcConnector getInstance() throws SQLException {
         if (instance == null) {
             instance = new JdbcConnector();
         }
+
         return instance;
+
     }
-    
-    public Connection connect(){
+
+    public Connection connect() {
         return this.conn;
     }
-    
-    public void close() throws SQLException{
-        if(this.conn != null ){
+
+    public void close() throws SQLException {
+        if (this.conn != null) {
             this.conn.close();
         }
     }

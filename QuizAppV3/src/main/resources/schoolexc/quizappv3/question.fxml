@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<ScrollPane stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolexc.quizappv3.QuestionController">
+   <content>
+      <VBox prefHeight="575.0" prefWidth="566.0" styleClass="Main">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Subject" text="Quan ly cau hoi " />
+            <TextField fx:id="txtContent" prefHeight="58.0" prefWidth="546.0" promptText="Noi dung..." />
+            <HBox prefHeight="55.0" prefWidth="600.0" styleClass="Main">
+               <children>
+                  <ComboBox fx:id="cbCate" prefWidth="150.0" promptText="Danh muc" />
+                  <ComboBox fx:id="cbLevel" prefWidth="150.0" promptText="Muc do" />
+               </children>
+            </HBox>
+            <VBox fx:id="vboxChoices" prefHeight="63.0" prefWidth="580.0" styleClass="Main">
+               <children>
+                  <HBox prefHeight="7.0" prefWidth="580.0" styleClass="Main">
+                     <children>
+                        <RadioButton mnemonicParsing="false">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="toggle" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <TextField />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="19.0" prefWidth="580.0" styleClass="Main">
+                     <children>
+                        <RadioButton mnemonicParsing="false" toggleGroup="$toggle" />
+                        <TextField />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Button mnemonicParsing="false" onAction="#handleMoreChoice" styleClass="Button" text="Them lua chon" />
+            <Button layoutX="210.0" layoutY="331.0" mnemonicParsing="false" onAction="#handleAddQuestion" styleClass="Button" text="Them cau hoi" />
+            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="Main">
+               <children>
+                  <TextField fx:id="txtSearch" promptText="Tim kiem.." />
+                  <ComboBox fx:id="cbCateSearch" prefWidth="150.0" promptText="Danh muc" />
+                  <ComboBox fx:id="cbLevelSearch" prefWidth="150.0" promptText="Muc do" />
+               </children>
+            </HBox>
+            <TableView fx:id="tbQuestion" prefHeight="200.0" prefWidth="200.0" />
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>

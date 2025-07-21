@@ -7,4 +7,5 @@ module schoolexc.quizappv2 {
     opens schoolexc.quizappv2 to javafx.fxml;
     exports schoolexc.quizappv2;
     exports schoolexc.quizappv2.pojo;
+    exports schoolexc.quizappv2.services.user;
 }

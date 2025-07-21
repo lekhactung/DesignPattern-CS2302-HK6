@@ -2,11 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package schoolexc.quizappv2.pojo;
+package schoolexc.quizappv3.pojo;
 
 import java.util.ArrayList;
 import java.util.List;
-import lombok.ToString;
 
 /**
  *
@@ -17,67 +16,60 @@ public class Question {
     private int id;
     private String content;
     private String hint;
-    private String img;
+    private String image;
     private Category category;
     private Level level;
     private List<Choice> choices;
 
-    @Override
-    public String toString() {
-        return this.content;
-    }
-
-    
-    
-    private Question(Builder b) {
+    public Question(Builder b) {
         this.id = b.id;
         this.content = b.content;
         this.hint = b.hint;
-        this.img = b.img;
+        this.image = b.image;
         this.category = b.category;
         this.level = b.level;
         this.choices = b.choices;
     }
 
     public static class Builder {
+
         private int id;
         private String content;
         private String hint;
-        private String img;
+        private String image;
         private Category category;
         private Level level;
         private List<Choice> choices = new ArrayList<>();
 
         public Builder(String content, Category category, Level level) throws Exception {
-            if (content.isEmpty() || category == null || level == null) {
-                throw new Exception("invalid data");
+            if (content.isEmpty()|| category == null || level == null) {
+                throw new Exception("Du lieu khong hop le!");
             }
             this.content = content;
             this.category = category;
-            this.level = level;     
+            this.level = level;
         }
 
-        public Builder(int id,String content) {
+        public Builder(int id, String content) {
             this.id = id;
             this.content = content;
         }
-        
 
         public Builder addHint(String s) {
             this.hint = s;
             return this;
         }
 
-        public Builder addImage(String url) {
-            this.img = url;
+        public Builder addImage(String s) {
+            this.image = s;
             return this;
         }
 
-        public Builder addChoice(Choice choice) {
-            this.choices.add(choice);
+        public Builder addChoice(Choice c) {
+            this.choices.add(c);
             return this;
         }
-        
+
         public Builder addAllChoice(List<Choice> choices) {
             this.choices.addAll(choices);
             return this;
@@ -86,6 +78,7 @@ public class Question {
         public Question build() {
             return new Question(this);
         }
+
     }
 
     /**
@@ -131,17 +124,17 @@ public class Question {
     }
 
     /**
-     * @return the img
+     * @return the image
      */
-    public String getImg() {
-        return img;
+    public String getImage() {
+        return image;
     }
 
     /**
-     * @param img the img to set
+     * @param image the image to set
      */
-    public void setImg(String img) {
-        this.img = img;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     /**

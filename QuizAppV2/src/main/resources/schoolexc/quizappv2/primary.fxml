@@ -8,11 +8,11 @@
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="489.0" styleClass="Main" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolexc.quizappv2.PrimaryController">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Subject" text="Quizz App" />
-      <Button mnemonicParsing="false" onAction="#handleQuestionManagement" styleClass="Button" text="Quan li cau hoi" />
-      <Button layoutX="207.0" layoutY="224.0" mnemonicParsing="false" onAction="#handlePracticeManagement" styleClass="Button" text="Luyen tap" />
-      <Button layoutX="207.0" layoutY="237.0" mnemonicParsing="false" onAction="#handleExam" styleClass="Button" text="Thi" />
-      <Button layoutX="207.0" layoutY="249.0" mnemonicParsing="false" styleClass="Button" text="Dang nhap" />
-      <Button layoutX="217.0" layoutY="262.0" mnemonicParsing="false" styleClass="Button" text="Dang ky" />
+      <Button fx:id="btnQstion" mnemonicParsing="false" onAction="#handleQuestionManagement" styleClass="Button" text="Quan li cau hoi" />
+      <Button fx:id="btnPractice" layoutX="207.0" layoutY="224.0" mnemonicParsing="false" onAction="#handlePracticeManagement" styleClass="Button" text="Luyen tap" />
+      <Button fx:id="btnExam" layoutX="207.0" layoutY="237.0" mnemonicParsing="false" onAction="#handleExam" styleClass="Button" text="Thi" />
+      <Button fx:id="btnLogin" layoutX="207.0" layoutY="249.0" mnemonicParsing="false" onAction="#handleLogin" styleClass="Button" text="Dang nhap" />
+      <Button fx:id="btnRegister" layoutX="217.0" layoutY="262.0" mnemonicParsing="false" styleClass="Button" text="Dang ky" />
       <ComboBox fx:id="cbTheme" onAction="#handleTheme" prefWidth="150.0" styleClass="Button" />
    </children>
 </VBox>

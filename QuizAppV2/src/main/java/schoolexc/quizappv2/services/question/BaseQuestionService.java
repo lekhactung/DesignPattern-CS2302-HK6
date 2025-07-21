@@ -30,9 +30,9 @@ public abstract class BaseQuestionService extends BaseSerivce<Question> {
         for (int i = 0; i < params.size(); i++) {
             stm.setObject(i + 1, params.get(i));
         }
-        return stm;
+        return stm; 
     }
-
+    
     @Override
     public List<Question> getResult(ResultSet rs) throws SQLException {
         List<Question> questions = new ArrayList<>();

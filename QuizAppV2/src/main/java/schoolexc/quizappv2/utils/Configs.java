@@ -20,4 +20,5 @@ public class Configs {
     public static BaseQuestionService questionServices = new QuestionServices();
     public static UpdateQuestionService updQuestionService = new UpdateQuestionService();
     public static final int NUM_OF_QUESTION = 10;
+    public static boolean LOGIN_STATUS = false;
 }
